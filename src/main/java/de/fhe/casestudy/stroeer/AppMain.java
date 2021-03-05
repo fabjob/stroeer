@@ -9,7 +9,6 @@ public class AppMain {
    public static void main(String[] args) {
       SpringApplication.run(AppMain.class, args);
 
-
       if (args != null && args.length > 0 && "openbrowser".equalsIgnoreCase(args[0]))
          try {
             Runtime.getRuntime().exec(new String[]{"cmd", "/c", "start chrome http://localhost:8080/login/"});

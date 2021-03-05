@@ -40,8 +40,6 @@ public class AppController {
    @RequestMapping(value = "/customer/login", method = RequestMethod.POST)
    public String loginSubmittedPage(Model model, @ModelAttribute("customer") Customer c) {
       Customer existing = customerService.getByEmail(c.getEmail());
-//      List<Product> listProducts = service.listAll();
-//      model.addAttribute("listProducts", listProducts);
       if (existing == null)
          return "login";  //  TODO:FH  create new customer
 
