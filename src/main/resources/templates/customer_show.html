@@ -17,22 +17,37 @@
         </tr>
         </tbody>
     </table>
-        <table border="1" cellpadding="10">
-            <thead>
+    <table border="1" cellpadding="10">
+        <thead>
+        <tr>
+            <th>IBAN</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="bankAccount : ${bankAccounts}">
+            <td th:text="${bankAccount.iban}">IBAN</td>
+            <td>
+                <a th:href="@{'/bankaccount/delete/' + ${bankAccount.id}}">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <form action="#" th:action="@{/bankaccount/new}"
+          method="post">
+
+        <table border="0" cellpadding="10">
             <tr>
-                <th>IBAN</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="bankAccount : ${bankAccounts}">
-                <td th:text="${bankAccount.iban}">IBAN</td>
                 <td>
-                    <a th:href="@{'/bankaccount/delete/' + ${bankAccount.id}}">Delete</a>
+                    <input type="text"/>
+                </td>
+                <td colspan="2">
+                    <button type="submit">Add new IBAN</button>
                 </td>
             </tr>
-            </tbody>
         </table>
-        <a href="@{'/bankaccount/new/' + ${bankAccount.customerId}}">Add a new Bankaccoount</a>
+    </form>
+    <!--    <a href="@{'/bankaccount/new/' + ${bankAccount.customerId}}">Add a new Bankaccoount</a>-->
 </div>
 </body>
 </html>

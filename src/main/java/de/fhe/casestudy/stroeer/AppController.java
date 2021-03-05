@@ -1,7 +1,5 @@
 package de.fhe.casestudy.stroeer;
 
-import java.util.List;
-
 import de.fhe.casestudy.stroeer.model.BankAccount;
 import de.fhe.casestudy.stroeer.model.Customer;
 import de.fhe.casestudy.stroeer.service.BankAccountService;
@@ -15,7 +13,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 @Controller
 public class AppController {
@@ -65,13 +64,12 @@ public class AppController {
       return "customer_show";
    }
 
-   @RequestMapping("/bankaccount/new/{customerId}")
-   public String showAddBankAccountPage(Model model, @PathVariable(name = "customerId") int customerId) {
-      BankAccount ba = new BankAccount();
-      ba.setCustomerId((long) customerId);
-      model.addAttribute("bankAccount", ba);
+   @RequestMapping(value = "/bankaccount/new/", method = RequestMethod.POST)
+   public String showAddBankAccountPage(Model model/*
+         , @ModelAttribute("bankaccount2") BankAccount ba*/) {
+//      ba.setCustomerId((long) customerId);
+//      model.addAttribute("bankaccount", ba);
 
       return "bankAccount_new";
    }
-
 }
