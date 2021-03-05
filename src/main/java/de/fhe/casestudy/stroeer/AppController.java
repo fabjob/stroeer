@@ -3,13 +3,9 @@ package de.fhe.casestudy.stroeer;
 import java.util.List;
 
 import de.fhe.casestudy.stroeer.model.BankAccount;
-import de.fhe.casestudy.stroeer.model.Book;
 import de.fhe.casestudy.stroeer.model.Customer;
-import de.fhe.casestudy.stroeer.model.Product;
 import de.fhe.casestudy.stroeer.service.BankAccountService;
-import de.fhe.casestudy.stroeer.service.BookService;
 import de.fhe.casestudy.stroeer.service.CustomerService;
-import de.fhe.casestudy.stroeer.service.ProductService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +21,6 @@ import org.springframework.web.servlet.ModelAndView;
 public class AppController {
    private static final Logger LOG = LogManager.getLogger();
 
-   @Autowired
-   private BookService bookService;
    @Autowired
    private CustomerService customerService;
    @Autowired
@@ -79,68 +73,5 @@ public class AppController {
 
       return "bankAccount_new";
    }
-/*
 
-
-
-   @RequestMapping("/customer/account")
-   public String viewBankAccount(Model model, @ModelAttribute("customer") Customer c) {
-      List<Book> listBooks = bookService.listAll();
-      model.addAttribute("listBooks", listBooks);
-
-      return "index_book";
-   }
-*/
-
-
-
-
-////////////////////////////////
-   @RequestMapping("/version")
-   public String version(Model model) {
-      Package pkg = AppController.class.getPackage();
-      String product = null;
-      String version = null;
-      try {
-         product = pkg.getImplementationVendor();
-         version = pkg.getImplementationVersion();
-      } catch (Exception e) {
-         LOG.warn("unable to read manifest information");
-      }
-
-      return new StringBuilder().append(product).append(": ").append(version).toString();
-   }
-
-
-   @RequestMapping("/books/")
-   public String viewBooks(Model model) {
-      List<Book> listBooks = bookService.listAll();
-      model.addAttribute("listBooks", listBooks);
-
-      return "index_book";
-   }
-
-   @RequestMapping("/books/edit/{id}")
-   public ModelAndView showEditBook(@PathVariable(name = "id") int id) {
-      ModelAndView mav = new ModelAndView("edit_book");
-      Book book = bookService.get(id);
-      mav.addObject("book", book);
-
-      return mav;
-   }
-
-   @RequestMapping("/books/new")
-   public String showNewBookPage(Model model) {
-      Book b = new Book();
-      model.addAttribute("book", b);
-
-      return "new_book";
-   }
-
-   @RequestMapping(value = "/books/save", method = RequestMethod.POST)
-   public String saveBook(@ModelAttribute("book") Book b) {
-      bookService.save(b);
-
-      return "redirect:/books/";
-   }
 }

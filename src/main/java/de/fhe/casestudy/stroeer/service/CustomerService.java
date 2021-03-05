@@ -1,8 +1,6 @@
 package de.fhe.casestudy.stroeer.service;
 
-import de.fhe.casestudy.stroeer.bean.BookRepository;
 import de.fhe.casestudy.stroeer.bean.CustomerRepository;
-import de.fhe.casestudy.stroeer.model.Book;
 import de.fhe.casestudy.stroeer.model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
