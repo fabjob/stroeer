@@ -31,20 +31,36 @@ public class AppController {
    }
 
    @RequestMapping("/login/")
-   public String viewLoginPage(Model model) {
+   public String showLoginPage(Model model) {
       Customer c = new Customer();
       model.addAttribute("customer", c);
       return "login";
    }
 
    @RequestMapping(value = "/customer/login", method = RequestMethod.POST)
-   public String loginSubmittedPage(Model model, @ModelAttribute("customer") Customer c) {
+   public String loginSubmitted(Model model, @ModelAttribute("customer") Customer c) {
       Customer existing = customerService.getByEmail(c.getEmail());
-      if (existing == null)
-         return "login";  //  TODO:FH  create new customer
+      if (existing == null) {
+         //  create new customer
+         model.addAttribute("customer", c);
+         return "customer_new";
+      }
 
       model.addAttribute("customer", existing);
       List<BankAccount> bankAccounts = bankAccountService.getByCustomerId(existing.getId());
+      model.addAttribute("bankAccounts", bankAccounts);
+
+      model.addAttribute("newAccount", new BankAccount());
+
+      return "customer_show";
+   }
+
+   @RequestMapping(value = "/customer/new", method = RequestMethod.POST)
+   public String newCustomer(Model model, @ModelAttribute("customer") Customer c) {
+      customerService.save(c);
+
+      model.addAttribute("customer", c);
+      List<BankAccount> bankAccounts = bankAccountService.getByCustomerId(c.getId());
       model.addAttribute("bankAccounts", bankAccounts);
 
       model.addAttribute("newAccount", new BankAccount());
