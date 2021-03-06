@@ -33,13 +33,13 @@
         </tbody>
     </table>
 
-    <form action="#" th:action="@{/bankaccount/new}"
+    <form action="#" th:action="@{'/bankaccount/new/' + ${customer.id}}" th:object="${newAccount}"
           method="post">
 
         <table border="0" cellpadding="10">
             <tr>
                 <td>
-                    <input type="text"/>
+                    <input type="text" th:field="*{iban}"/>
                 </td>
                 <td colspan="2">
                     <button type="submit">Add new IBAN</button>

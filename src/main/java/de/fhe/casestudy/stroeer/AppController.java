@@ -47,6 +47,22 @@ public class AppController {
       List<BankAccount> bankAccounts = bankAccountService.getByCustomerId(existing.getId());
       model.addAttribute("bankAccounts", bankAccounts);
 
+      model.addAttribute("newAccount", new BankAccount());
+
+      return "customer_show";
+   }
+
+   @RequestMapping(value = "/bankaccount/new/{customerId}", method = RequestMethod.POST)
+   public String showAddBankAccountPage(Model model, @PathVariable(name = "customerId") int customerId
+         , @ModelAttribute("newAccount") BankAccount newAccount) {
+
+
+      Customer c = customerService.get(customerId);
+      model.addAttribute("customer", c);
+      bankAccountService.save(newAccount);  //  TODO:FH validate
+      List<BankAccount> bankAccounts = bankAccountService.getByCustomerId(c.getId());   //  TODO:FH read with customer
+      model.addAttribute("bankAccounts", bankAccounts);
+
       return "customer_show";
    }
 
@@ -58,16 +74,8 @@ public class AppController {
       List<BankAccount> bankAccounts = bankAccountService.getByCustomerId(bankAccount.getCustomerId());
       model.addAttribute("bankAccounts", bankAccounts);
       model.addAttribute("customer", customerService.get(bankAccount.getCustomerId()));
+      model.addAttribute("newAccount", new BankAccount());
 
       return "customer_show";
-   }
-
-   @RequestMapping(value = "/bankaccount/new/", method = RequestMethod.POST)
-   public String showAddBankAccountPage(Model model/*
-         , @ModelAttribute("bankaccount2") BankAccount ba*/) {
-//      ba.setCustomerId((long) customerId);
-//      model.addAttribute("bankaccount", ba);
-
-      return "bankAccount_new";
    }
 }
